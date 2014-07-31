@@ -399,13 +399,18 @@ Polymer( "basic-culture-selector", {
     this.nameChanged();
   },
 
-  name: Globalize.cultures.default.name,
-
   nameChanged: function() {
     var cultureIdentifier = this.name;
     this._loadCulture( cultureIdentifier, function() {
       this.culture = Globalize.cultures[ cultureIdentifier ];
     }.bind( this ));
+  },
+
+  publish: {
+    name: {
+      value: Globalize.cultures.default.name,
+      reflect: true
+    }
   },
 
   // Ensure the culture info for the given culture is loaded.
