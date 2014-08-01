@@ -397,6 +397,14 @@ GlobalizeCulture = {
 Polymer( "basic-culture-selector", {
 
   /**
+   * Fired when the culture attribute has been changed.
+   *
+   * @event basic-culture-changed
+   * @param Object detail Event details; the "culture" property contains a
+   *                      reference to the new Globalize culture.
+   */
+
+  /**
    * The Globalize culture/language settings loaded by this element.
    *
    * @attribute culture
