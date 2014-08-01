@@ -27,9 +27,18 @@ basic-framed-content {
 <script>
 window.addEventListener( "WebComponentsReady", function() {
   var cultureSelector = document.querySelector( "#cultureSelector" );
-  var cultureSettings = document.querySelector( "#cultureSettings" );
-  cultureSelector.addEventListener( "globalize-culture-changed", function() {
-    cultureSettings.textContent = JSON.stringify( cultureSelector.culture, null, " " );
+  var cultureDetailsTemplate = document.querySelector( "#cultureDetailsTemplate" );
+  cultureSelector.addEventListener( "basic-culture-changed", function() {
+    var culture = cultureSelector.culture;
+    cultureDetailsTemplate.model = {
+      details: {
+        nativeName: culture.nativeName,
+        englishName: culture.englishName,
+        dateExample: Globalize.format( new Date(), "D", culture ),
+        numberExample: Globalize.format( 1234567.89, "n", culture ),
+        currencyExample: Globalize.format( 1234.56, "c", culture )
+      }
+    };
   });
 });
 </script>
@@ -38,8 +47,17 @@ window.addEventListener( "WebComponentsReady", function() {
 
 <body unresolved>
 <basic-framed-content>
-  <basic-culture-selector id="cultureSelector">Pick your preferred language/location settings:</basic-culture-selector>
-  <pre id="cultureSettings"></pre>
+  <p>
+    <basic-culture-selector id="cultureSelector">Pick your preferred language/location settings:</basic-culture-selector>
+  </p>
+  <template id="cultureDetailsTemplate" bind="{{details}}">
+    <div>Culture name: {{nativeName}}</div>
+    <div>English name: {{englishName}}</div>
+    <div>Today's date: {{dateExample}}</div>
+    <div>Number example: {{numberExample}}</div>
+    <div>Currency example: {{currencyExample}}</div>
+  </template>
+  </template>
 </basic-framed-content>
 </body>
 
