@@ -1,5 +1,5 @@
-<!--
 Select a culture from the Globalize culture list.
+<!--
 
 This currently works with Globalize 0.x. This component will be updated to work
 with Globalize 1.x-alpha, which is substantially different, when that edition
@@ -404,7 +404,11 @@ Polymer( "basic-culture-selector", {
   culture: null,
 
   cultureChanged: function() {
-    this.dispatchEvent( new CustomEvent( "basic-culture-changed" ) );
+    this.dispatchEvent( new CustomEvent( "basic-culture-changed", {
+      detail: {
+        culture: this.culture
+      }
+    }));
   },
 
   ready: function() {
