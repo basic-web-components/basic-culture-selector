@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>Basic tests for basic-culture-selector</title>
+
+  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <!-- Step 1: import the element to test -->
+  <link rel="import" href="../basic-culture-selector.html">
+</head>
+<body>
+
+  <!-- You use the document as a place to set up your fixtures. -->
+  <basic-culture-selector id="bcs1"></basic-culture-selector>
+
+  <script>
+  var bcs1 = document.querySelector('#bcs1');
+
+  suite('basic', function() {
+
+    test('default name', function(done) {
+      assert.equal(bcs1.name, 'en');
+      done();
+    });
+
+    test('set name', function(done) {
+      bcs1.name = 'fr-FR';
+      flush(function() {
+        assert.equal(bcs1.name, 'fr-FR');
+        done();
+      });
+    });
+
+  });
+  </script>
+
+</body>
+</html>

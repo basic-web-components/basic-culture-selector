@@ -412,7 +412,7 @@ Polymer({
   culture: null,
 
   cultureChanged: function() {
-    this.dispatchEvent( new CustomEvent( "basic-culture-changed", {
+    this.dispatchEvent(new CustomEvent('basic-culture-changed', {
       detail: {
         culture: this.culture
       }
@@ -426,9 +426,9 @@ Polymer({
 
   nameChanged: function() {
     var cultureIdentifier = this.name;
-    this._loadCulture( cultureIdentifier, function() {
-      this.culture = Globalize.cultures[ cultureIdentifier ];
-    }.bind( this ));
+    this._loadCulture(cultureIdentifier, function() {
+      this.culture = Globalize.cultures[cultureIdentifier];
+    }.bind(this));
   },
 
   publish: {
@@ -446,21 +446,22 @@ Polymer({
   },
 
   // Ensure the culture info for the given culture is loaded.
-  _loadCulture: function( cultureIdentifier, callback ) {
-    if ( Globalize.cultures[ cultureIdentifier] ) {
+  _loadCulture: function(cultureIdentifier, callback) {
+    if (Globalize.cultures[cultureIdentifier]) {
       // Already loaded.
       callback();
-    } else {    
+    }
+    else {
       // Dynamically load the culture file from the sibling Globalize component.
-      var cultureSettingsUrl = "../globalize/lib/cultures/globalize.culture." + cultureIdentifier + ".js";
+      var cultureSettingsUrl = '../globalize/lib/cultures/globalize.culture.' + cultureIdentifier + '.js';
       // Find the culture file relative to this file.
-      var url = this.resolvePath( cultureSettingsUrl );
-      var script = document.createElement( "script" );
-      script.addEventListener( "load", function() {
+      var url = this.resolvePath(cultureSettingsUrl);
+      var script = document.createElement('script');
+      script.addEventListener('load', function() {
         callback();
-      }.bind( this ));
+      }.bind(this));
       script.src = url;
-      document.head.appendChild( script );
+      document.head.appendChild(script);
     }
   }
 
