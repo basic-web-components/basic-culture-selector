@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<script src="../webcomponentsjs/webcomponents.js"></script>
-<link rel="import" href="../basic-framed-content/basic-framed-content.html">
-<link rel="import" href="basic-culture-selector.html">
 
-<style>
-body,
-button,
-input {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
-}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>basic-culture-selector</title>
 
-body {
-  margin: 0;
-}
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../basic-framed-content/basic-framed-content.html">
+  <link rel="import" href="basic-culture-selector.html">
 
-basic-framed-content {
-  padding: 2em;
-}
-</style>
+  <style>
+  body,
+  button,
+  input {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+  }
 
-<script>
-var model = {};
+  body {
+    margin: 0;
+  }
 
-window.addEventListener( "WebComponentsReady", function() {
-  document.querySelector( "template" ).model = model;
-  document.querySelector( "basic-culture-selector" ).addEventListener( "basic-culture-changed", function( event ) {
-    var culture = event.detail.culture;
-     model.details = {
-      nativeName: culture.nativeName,
-      englishName: culture.englishName,
-      dateExample: Globalize.format( new Date(), "D", culture ),
-      numberExample: Globalize.format( 1234567.89, "n", culture ),
-      currencyExample: Globalize.format( 1234.56, "c", culture )
+  basic-framed-content {
+    padding: 2em;
+  }
+  </style>
+
+  <script>
+
+  function handle_cultureChanged(bcsElement, culture) {
+    var locale = culture.cldr.locale;
+    var numberFormatter = Globalize(locale).numberFormatter();
+    var dateFormatter = Globalize(locale).dateFormatter();
+
+    document.querySelector('template').model = {
+      cultureName: bcsElement.name,
+      dateExample: dateFormatter(new Date()),
+      numberExample: numberFormatter(1234567.89),
     };
+  }
+
+  window.addEventListener("WebComponentsReady", function() {
+    document.querySelector("template").model = {};
+    var bcsElement = document.querySelector('basic-culture-selector');
+    bcsElement.addEventListener("culture-changed", function(event) {
+      handle_cultureChanged(bcsElement, bcsElement.culture);
+    });
+
+    // If the newly constructed element has the culture property set, use it.
+    // Otherwise, we'll pick it up in the basic-culture-changed event.
+    if (bcsElement.culture) {
+      handle_cultureChanged(bcsElement, bcsElement.culture);
+    }
   });
-});
-</script>
+  </script>
 
 </head>
 
@@ -49,12 +63,10 @@ window.addEventListener( "WebComponentsReady", function() {
   <p>
     <basic-culture-selector>Pick your preferred language/location settings:</basic-culture-selector>
   </p>
-  <template bind="{{details}}">
-    <div>Culture name: {{nativeName}}</div>
-    <div>English name: {{englishName}}</div>
-    <div>Today's date: {{dateExample}}</div>
-    <div>Number example: {{numberExample}}</div>
-    <div>Currency example: {{currencyExample}}</div>
+  <template is="dom-bind">
+    <div>Culture name: <span>{{model.cultureName}}</span></div>
+    <div>Today's date: <span>{{model.dateExample}}</span></div>
+    <div>Number example: <span>{{model.numberExample}}</span></div>
   </template>
 </basic-framed-content>
 </body>
