@@ -10,36 +10,36 @@ then read the "culture" attribute to get its settings.
 @demo http://basic-web-components.github.io/basic-web-components/src/basic-culture-selector/?dom=shadow
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../basic-shared/basic-shared.html">
 
-<script src="../../bower_components/deepmerge/index.js"></script>
+<script src="../deepmerge/index.js"></script>
 
 <!--
 First, we load Globalize's dependencies (`cldrjs` and its supplemental
 module).
 -->
-<script src="../../bower_components/cldrjs/dist/cldr.js"></script>
-<script src="../../bower_components/cldrjs/dist/cldr/event.js"></script>
-<script src="../../bower_components/cldrjs/dist/cldr/supplemental.js"></script>
+<script src="../cldrjs/dist/cldr.js"></script>
+<script src="../cldrjs/dist/cldr/event.js"></script>
+<script src="../cldrjs/dist/cldr/supplemental.js"></script>
 
 <!--
 Next, we load Globalize and its modules. Note they are already available on
 this repository. If it's not, read Usage on Getting Started on the root's
 README.md.
 -->
-<script src="../../bower_components/globalize/dist/globalize.js"></script>
-<script src="../../bower_components/globalize/dist/globalize/message.js"></script>
-<script src="../../bower_components/globalize/dist/globalize/number.js"></script>
-<script src="../../bower_components/globalize/dist/globalize/plural.js"></script>
+<script src="../globalize/dist/globalize.js"></script>
+<script src="../globalize/dist/globalize/message.js"></script>
+<script src="../globalize/dist/globalize/number.js"></script>
+<script src="../globalize/dist/globalize/plural.js"></script>
 
 <!-- Load after globalize/number.js -->
-<script src="../../bower_components/globalize/dist/globalize/date.js"></script>
-<script src="../../bower_components/globalize/dist/globalize/currency.js"></script>
+<script src="../globalize/dist/globalize/date.js"></script>
+<script src="../globalize/dist/globalize/currency.js"></script>
 
 <!-- Load after globalize/number.js and globalize/plural.js-->
-<script src="../../bower_components/globalize/dist/globalize/relative-time.js"></script>
+<script src="../globalize/dist/globalize/relative-time.js"></script>
 
 <dom-module id="basic-culture-selector">
   <template>
@@ -122,11 +122,11 @@ Polymer({
 
   // Array of CLDR files to be loaded as part of initialization
   _cldrFiles: [
-    '../../bower_components/cldr-data/supplemental/numberingSystems.json',
-    '../../bower_components/cldr-data/supplemental/currencyData.json',
-    '../../bower_components/cldr-data/supplemental/likelySubtags.json',
-    '../../bower_components/cldr-data/supplemental/timeData.json',
-    '../../bower_components/cldr-data/supplemental/weekData.json'
+    '../cldr-data/supplemental/numberingSystems.json',
+    '../cldr-data/supplemental/currencyData.json',
+    '../cldr-data/supplemental/likelySubtags.json',
+    '../cldr-data/supplemental/timeData.json',
+    '../cldr-data/supplemental/weekData.json'
   ],
 
   // Expected number of ajax responses
@@ -148,11 +148,11 @@ Polymer({
 
   // Array of files to be loaded per locale
   _localeFiles: [
-    '../../bower_components/cldr-data/main/{{cultureString}}/ca-gregorian.json',
-    '../../bower_components/cldr-data/main/{{cultureString}}/timeZoneNames.json',
-    '../../bower_components/cldr-data/main/{{cultureString}}/numbers.json',
-    '../../bower_components/cldr-data/main/{{cultureString}}/currencies.json',
-    '../../bower_components/cldr-data/main/{{cultureString}}/layout.json'
+    '../cldr-data/main/{{cultureString}}/ca-gregorian.json',
+    '../cldr-data/main/{{cultureString}}/timeZoneNames.json',
+    '../cldr-data/main/{{cultureString}}/numbers.json',
+    '../cldr-data/main/{{cultureString}}/currencies.json',
+    '../cldr-data/main/{{cultureString}}/layout.json'
   ],
 
   _nameChanged: function() {
